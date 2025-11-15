@@ -1,0 +1,612 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Task2\_Report},
+  pdfauthor={Shuxuan Huang},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Task2\_Report}
+\author{Shuxuan Huang}
+\date{2025-11-15}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#install.packages(c("tidyverse", "lme4","emmeans"))}
+\CommentTok{\#Loading packages and data}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v dplyr     1.1.4     v readr     2.1.5
+## v forcats   1.0.1     v stringr   1.6.0
+## v ggplot2   4.0.0     v tibble    3.3.0
+## v lubridate 1.9.4     v tidyr     1.3.1
+## v purrr     1.2.0     
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lme4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: Matrix
+## 
+## Attaching package: 'Matrix'
+## 
+## The following objects are masked from 'package:tidyr':
+## 
+##     expand, pack, unpack
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(emmeans)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Welcome to emmeans.
+## Caution: You lose important information if you filter this package's results.
+## See '? untidy'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"Data\_T2.csv"}\NormalTok{, }\AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{str}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    5460 obs. of  6 variables:
+##  $ X        : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ ID       : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ Time     : int  0 1 2 3 4 5 6 7 8 9 ...
+##  $ DV       : num  481 525 474 538 519 ...
+##  $ Treatment: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Model    : int  1 1 1 1 1 1 1 1 1 1 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Preprocess data}
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{ID =} \FunctionTok{as.factor}\NormalTok{(ID),}
+    \AttributeTok{Treatment =} \FunctionTok{as.factor}\NormalTok{(Treatment),}
+    \AttributeTok{Model =} \FunctionTok{as.factor}\NormalTok{(Model),}
+    \CommentTok{\# create friendly labels}
+    \AttributeTok{Treatment\_lab =} \FunctionTok{recode}\NormalTok{(Treatment, }\StringTok{\textasciigrave{}}\AttributeTok{0}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"Control"}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{1}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"ATXC10X"}\NormalTok{),}
+    \AttributeTok{Model\_lab =} \FunctionTok{recode}\NormalTok{(Model, }\StringTok{\textasciigrave{}}\AttributeTok{0}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"Induced"}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{1}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"Xenograft"}\NormalTok{)}
+\NormalTok{  )}
+
+\FunctionTok{summary}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{DV)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   361.8   559.2   635.6   673.2   760.3  1381.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Treatment, df}\SpecialCharTok{$}\NormalTok{Model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    
+##        0    1
+##   0 1274 1456
+##   1  910 1820
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Scatter and lines}
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Time, }\AttributeTok{y =}\NormalTok{ DV, }\AttributeTok{group =}\NormalTok{ ID, }\AttributeTok{color =}\NormalTok{ Treatment\_lab)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Model\_lab) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{trans =} \StringTok{"log1p"}\NormalTok{) }\SpecialCharTok{+}
+\FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Tumour volume trajectories by subject"}\NormalTok{,}
+     \AttributeTok{y =} \StringTok{"Tumour volume (mm\^{}3)"}\NormalTok{,}
+     \AttributeTok{color =} \StringTok{"Treatment"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Task2_Report_files/figure-latex/unnamed-chunk-3-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculation for SE}
+\NormalTok{df\_summary }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Model\_lab, Treatment\_lab, Time) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{n =} \FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{mean\_DV =} \FunctionTok{mean}\NormalTok{(DV, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{sd\_DV =} \FunctionTok{sd}\NormalTok{(DV, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{se\_DV =}\NormalTok{ sd\_DV }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(n)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ungroup}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'Model_lab', 'Treatment_lab'. You can
+## override using the `.groups` argument.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Plot mean ± SE curves}
+\FunctionTok{ggplot}\NormalTok{(df\_summary, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Time, }\AttributeTok{y =}\NormalTok{ mean\_DV, }\AttributeTok{color =}\NormalTok{ Treatment\_lab)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ mean\_DV }\SpecialCharTok{{-}}\NormalTok{ se\_DV, }\AttributeTok{ymax =}\NormalTok{ mean\_DV }\SpecialCharTok{+}\NormalTok{ se\_DV, }\AttributeTok{fill =}\NormalTok{ Treatment\_lab), }\AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Model\_lab, }\AttributeTok{scales =} \StringTok{"free\_y"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Mean tumour volume ± SE by time, treatment and model"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Mean tumour volume (mm\^{}3)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Task2_Report_files/figure-latex/unnamed-chunk-4-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Histogram(beginning+end)}
+\FunctionTok{ggplot}\NormalTok{(df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Time }\SpecialCharTok{==} \FunctionTok{min}\NormalTok{(Time)), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ DV, }\AttributeTok{fill =}\NormalTok{ Treatment\_lab)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{position =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{, }\AttributeTok{bins =} \DecValTok{20}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Model\_lab, }\AttributeTok{scales =} \StringTok{"free\_y"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Baseline tumour volumes (first timepoint)"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Tumour volume (mm\^{}3)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Task2_Report_files/figure-latex/unnamed-chunk-5-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Time }\SpecialCharTok{==} \FunctionTok{max}\NormalTok{(Time)), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ DV, }\AttributeTok{fill =}\NormalTok{ Treatment\_lab)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{position =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{, }\AttributeTok{bins =} \DecValTok{20}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Model\_lab, }\AttributeTok{scales =} \StringTok{"free\_y"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Baseline tumour volumes (last timepoint)"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Tumour volume (mm\^{}3)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Task2_Report_files/figure-latex/unnamed-chunk-5-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Transform DV}
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{logDV =} \FunctionTok{log}\NormalTok{(DV }\SpecialCharTok{+} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#LME Model}
+\NormalTok{LME\_model}\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(logDV }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Time }\SpecialCharTok{*}\NormalTok{ Treatment }\SpecialCharTok{*}\NormalTok{ Model }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Time }\SpecialCharTok{|}\NormalTok{ ID),}
+                 \AttributeTok{data =}\NormalTok{ df, }\AttributeTok{REML =} \ConstantTok{FALSE}\NormalTok{,}
+                 \AttributeTok{control =} \FunctionTok{lmerControl}\NormalTok{(}\AttributeTok{optimizer =} \StringTok{"bobyqa"}\NormalTok{, }\AttributeTok{optCtrl =} \FunctionTok{list}\NormalTok{(}\AttributeTok{maxfun =} \FloatTok{2e5}\NormalTok{)))}
+\FunctionTok{summary}\NormalTok{(LME\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by maximum likelihood  ['lmerMod']
+## Formula: logDV ~ Time * Treatment * Model + (1 + Time | ID)
+##    Data: df
+## Control: lmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e+05))
+## 
+##       AIC       BIC    logLik -2*log(L)  df.resid 
+##  -17699.9  -17620.7    8862.0  -17723.9      5448 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -4.2240 -0.6691  0.0040  0.6458  3.8388 
+## 
+## Random effects:
+##  Groups   Name        Variance  Std.Dev. Corr
+##  ID       (Intercept) 9.585e-03 0.097904     
+##           Time        3.813e-06 0.001953 0.01
+##  Residual             2.023e-03 0.044974     
+## Number of obs: 5460, groups:  ID, 60
+## 
+## Fixed effects:
+##                          Estimate Std. Error t value
+## (Intercept)             6.1952019  0.0262850 235.694
+## Time                    0.0069271  0.0005241  13.218
+## Treatment1              0.0274576  0.0407205   0.674
+## Model1                  0.0908901  0.0359922   2.525
+## Time:Treatment1        -0.0047026  0.0008119  -5.792
+## Time:Model1             0.0001957  0.0007176   0.273
+## Treatment1:Model1      -0.0320447  0.0524054  -0.611
+## Time:Treatment1:Model1  0.0015119  0.0010448   1.447
+## 
+## Correlation of Fixed Effects:
+##             (Intr) Time   Trtmn1 Model1 Tm:Tr1 Tm:Md1 Tr1:M1
+## Time         0.004                                          
+## Treatment1  -0.645 -0.003                                   
+## Model1      -0.730 -0.003  0.471                            
+## Tim:Trtmnt1 -0.003 -0.645  0.004  0.002                     
+## Time:Model1 -0.003 -0.730  0.002  0.004  0.471              
+## Trtmnt1:Md1  0.502  0.002 -0.777 -0.687 -0.003 -0.003       
+## Tm:Trtm1:M1  0.002  0.502 -0.003 -0.003 -0.777 -0.687  0.004
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{VarCorr}\NormalTok{(LME\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Groups   Name        Std.Dev.  Corr 
+##  ID       (Intercept) 0.0979037      
+##           Time        0.0019526 0.012
+##  Residual             0.0449742
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{LME\_no3 }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(logDV }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Time }\SpecialCharTok{*}\NormalTok{ Treatment }\SpecialCharTok{+}\NormalTok{ Time }\SpecialCharTok{*}\NormalTok{ Model }\SpecialCharTok{+}\NormalTok{ Treatment }\SpecialCharTok{*}\NormalTok{ Model }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Time }\SpecialCharTok{|}\NormalTok{ ID),}
+                \AttributeTok{data =}\NormalTok{ df, }\AttributeTok{REML =} \ConstantTok{FALSE}\NormalTok{,}
+                \AttributeTok{control =} \FunctionTok{lmerControl}\NormalTok{(}\AttributeTok{optimizer =} \StringTok{"bobyqa"}\NormalTok{, }\AttributeTok{optCtrl =} \FunctionTok{list}\NormalTok{(}\AttributeTok{maxfun =} \FloatTok{2e5}\NormalTok{)))}
+\FunctionTok{anova}\NormalTok{(LME\_no3, LME\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Data: df
+## Models:
+## LME_no3: logDV ~ Time * Treatment + Time * Model + Treatment * Model + (1 + Time | ID)
+## LME_model: logDV ~ Time * Treatment * Model + (1 + Time | ID)
+##           npar    AIC    BIC logLik -2*log(L)  Chisq Df Pr(>Chisq)
+## LME_no3     11 -17700 -17627 8860.9    -17722                     
+## LME_model   12 -17700 -17621 8862.0    -17724 2.0583  1     0.1514
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(LME\_no3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by maximum likelihood  ['lmerMod']
+## Formula: logDV ~ Time * Treatment + Time * Model + Treatment * Model +  
+##     (1 + Time | ID)
+##    Data: df
+## Control: lmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e+05))
+## 
+##       AIC       BIC    logLik -2*log(L)  df.resid 
+##  -17699.9  -17627.2    8860.9  -17721.9      5449 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -4.2262 -0.6675  0.0042  0.6470  3.8402 
+## 
+## Random effects:
+##  Groups   Name        Variance  Std.Dev. Corr
+##  ID       (Intercept) 9.585e-03 0.097904     
+##           Time        3.947e-06 0.001987 0.01
+##  Residual             2.023e-03 0.044974     
+## Number of obs: 5460, groups:  ID, 60
+## 
+## Fixed effects:
+##                     Estimate Std. Error t value
+## (Intercept)        6.1951237  0.0262851 235.690
+## Time               0.0065467  0.0004612  14.195
+## Treatment1         0.0276454  0.0407206   0.679
+## Model1             0.0910368  0.0359923   2.529
+## Time:Treatment1   -0.0037897  0.0005199  -7.290
+## Time:Model1        0.0009089  0.0005306   1.713
+## Treatment1:Model1 -0.0323556  0.0524053  -0.617
+## 
+## Correlation of Fixed Effects:
+##             (Intr) Time   Trtmn1 Model1 Tm:Tr1 Tm:Md1
+## Time         0.004                                   
+## Treatment1  -0.645 -0.001                            
+## Model1      -0.730 -0.002  0.471                     
+## Tim:Trtmnt1 -0.002 -0.470  0.003  0.000              
+## Time:Model1 -0.002 -0.614  0.000  0.003 -0.136       
+## Trtmnt1:Md1  0.502  0.000 -0.777 -0.687  0.000  0.000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{VarCorr}\NormalTok{(LME\_no3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Groups   Name        Std.Dev.  Corr 
+##  ID       (Intercept) 0.0979044      
+##           Time        0.0019866 0.012
+##  Residual             0.0449742
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{fixef}\NormalTok{(LME\_no3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       (Intercept)              Time        Treatment1            Model1 
+##      6.1951237283      0.0065466950      0.0276453578      0.0910367863 
+##   Time:Treatment1       Time:Model1 Treatment1:Model1 
+##     -0.0037897338      0.0009089111     -0.0323556077
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{confint}\NormalTok{(LME\_no3, }\AttributeTok{method =} \StringTok{"Wald"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                           2.5 %       97.5 %
+## .sig01                       NA           NA
+## .sig02                       NA           NA
+## .sig03                       NA           NA
+## .sigma                       NA           NA
+## (Intercept)        6.1436059081  6.246641548
+## Time               0.0056427434  0.007450647
+## Treatment1        -0.0521654616  0.107456177
+## Model1             0.0204932408  0.161580332
+## Time:Treatment1   -0.0048086714 -0.002770796
+## Time:Model1       -0.0001310378  0.001948860
+## Treatment1:Model1 -0.1350680885  0.070356873
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Random Effects}
+\NormalTok{ranef\_df }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{ranef}\NormalTok{(LME\_no3)}\SpecialCharTok{$}\NormalTok{ID) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ tibble}\SpecialCharTok{::}\FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"ID"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(ranef\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   ID (Intercept)          Time
+## 1  1 -0.04978873 -0.0010383750
+## 2  2  0.02639701  0.0010857364
+## 3  3 -0.06594594  0.0007806701
+## 4  4 -0.23881580 -0.0002064051
+## 5  5 -0.09763716  0.0012320707
+## 6  6 -0.07601677  0.0014424929
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Predict}
+\NormalTok{time\_grid }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Time, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+                 \FunctionTok{max}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Time, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+                 \AttributeTok{length.out =} \DecValTok{50}\NormalTok{)}
+\NormalTok{emm\_grid }\OtherTok{\textless{}{-}} \FunctionTok{expand.grid}\NormalTok{(}\AttributeTok{Time =}\NormalTok{ time\_grid,}
+                        \AttributeTok{Treatment =} \FunctionTok{levels}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Treatment),}
+                        \AttributeTok{Model =} \FunctionTok{levels}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Model))}
+\NormalTok{emm\_grid}\SpecialCharTok{$}\NormalTok{Treatment }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(emm\_grid}\SpecialCharTok{$}\NormalTok{Treatment, }\AttributeTok{levels =} \FunctionTok{levels}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Treatment))}
+\NormalTok{emm\_grid}\SpecialCharTok{$}\NormalTok{Model }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(emm\_grid}\SpecialCharTok{$}\NormalTok{Model, }\AttributeTok{levels =} \FunctionTok{levels}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Model))}
+
+\NormalTok{emm }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(LME\_no3, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Time }\SpecialCharTok{|}\NormalTok{ Treatment }\SpecialCharTok{*}\NormalTok{ Model, }
+               \AttributeTok{at =} \FunctionTok{list}\NormalTok{(}\AttributeTok{Time =}\NormalTok{ time\_grid), }\AttributeTok{cov.reduce =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Note: D.f. calculations have been disabled because the number of observations exceeds 3000.
+## To enable adjustments, add the argument 'pbkrtest.limit = 5460' (or larger)
+## [or, globally, 'set emm_options(pbkrtest.limit = 5460)' or larger];
+## but be warned that this may result in large computation time and memory use.
+\end{verbatim}
+
+\begin{verbatim}
+## Note: D.f. calculations have been disabled because the number of observations exceeds 3000.
+## To enable adjustments, add the argument 'lmerTest.limit = 5460' (or larger)
+## [or, globally, 'set emm_options(lmerTest.limit = 5460)' or larger];
+## but be warned that this may result in large computation time and memory use.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{emm\_df }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(emm)}
+\FunctionTok{head}\NormalTok{(emm\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Time Treatment Model   emmean         SE  df asymp.LCL asymp.UCL
+##  0.000000 0         0     6.195124 0.02628508 Inf  6.143606  6.246642
+##  1.836735 0         0     6.207148 0.02630179 Inf  6.155598  6.258699
+##  3.673469 0         0     6.219173 0.02634573 Inf  6.167536  6.270809
+##  5.510204 0         0     6.231197 0.02641678 Inf  6.179421  6.282973
+##  7.346939 0         0     6.243222 0.02651472 Inf  6.191254  6.295190
+##  9.183673 0         0     6.255246 0.02663924 Inf  6.203034  6.307458
+## 
+## Degrees-of-freedom method: asymptotic 
+## Confidence level used: 0.95
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{emm\_df }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(emm) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{pred\_logDV =}\NormalTok{ emmean,}
+    \AttributeTok{pred\_DV =} \FunctionTok{exp}\NormalTok{(pred\_logDV) }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{,}
+    \AttributeTok{lower\_DV =} \FunctionTok{exp}\NormalTok{(pred\_logDV }\SpecialCharTok{{-}} \FloatTok{1.96}\SpecialCharTok{*}\NormalTok{SE) }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{,  }\CommentTok{\# Wald CI}
+    \AttributeTok{upper\_DV =} \FunctionTok{exp}\NormalTok{(pred\_logDV }\SpecialCharTok{+} \FloatTok{1.96}\SpecialCharTok{*}\NormalTok{SE) }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{,}
+    \AttributeTok{Treatment =} \FunctionTok{factor}\NormalTok{(Treatment),}
+    \AttributeTok{Model =} \FunctionTok{factor}\NormalTok{(Model),}
+    \AttributeTok{Treatment\_lab =} \FunctionTok{recode}\NormalTok{(Treatment, }\StringTok{\textasciigrave{}}\AttributeTok{0}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"Control"}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{1}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"ATXC10X"}\NormalTok{),}
+    \AttributeTok{Model\_lab =} \FunctionTok{recode}\NormalTok{(Model, }\StringTok{\textasciigrave{}}\AttributeTok{0}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"Induced"}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{1}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"Xenograft"}\NormalTok{)}
+\NormalTok{  )}
+
+
+\CommentTok{\# Predict Plot}
+\NormalTok{p\_pred }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Time, }\AttributeTok{y =}\NormalTok{ DV, }\AttributeTok{color =}\NormalTok{ Treatment\_lab), }\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.8}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emm\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Time, }\AttributeTok{y =}\NormalTok{ pred\_DV, }\AttributeTok{color =}\NormalTok{ Treatment\_lab), }\AttributeTok{size =} \FloatTok{1.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emm\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Time, }\AttributeTok{ymin =}\NormalTok{ lower\_DV, }\AttributeTok{ymax =}\NormalTok{ upper\_DV, }\AttributeTok{fill =}\NormalTok{ Treatment\_lab), }\AttributeTok{alpha =} \FloatTok{0.15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Model\_lab, }\AttributeTok{scales =} \StringTok{"free\_y"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Population{-}level predicted tumour trajectories (back{-}transformed)"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Tumour volume (mm\^{}3)"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Time (days)"}\NormalTok{,}
+       \AttributeTok{color =} \StringTok{"Treatment"}\NormalTok{,}
+       \AttributeTok{fill =} \StringTok{"Treatment"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## i Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(p\_pred)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Task2_Report_files/figure-latex/unnamed-chunk-8-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# predict original data and fitted for that subject:}
+\NormalTok{some\_id }\OtherTok{\textless{}{-}} \FunctionTok{levels}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{ID)[}\DecValTok{2}\NormalTok{]}
+\NormalTok{df\_sub }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(ID }\SpecialCharTok{==}\NormalTok{ some\_id)}
+\NormalTok{df\_sub}\SpecialCharTok{$}\NormalTok{pred\_log }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(LME\_no3, }\AttributeTok{newdata =}\NormalTok{ df\_sub, }\AttributeTok{re.form =} \ConstantTok{NULL}\NormalTok{)  }\CommentTok{\# includes random effects by default}
+\NormalTok{df\_sub}\SpecialCharTok{$}\NormalTok{pred\_DV }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(df\_sub}\SpecialCharTok{$}\NormalTok{pred\_log) }\SpecialCharTok{{-}} \DecValTok{1}
+
+\FunctionTok{ggplot}\NormalTok{(df\_sub, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Time)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ DV), }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ pred\_DV), }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \FunctionTok{paste}\NormalTok{(}\StringTok{"Subject{-}level fit for ID:"}\NormalTok{, some\_id),}
+       \AttributeTok{y =} \StringTok{"Tumour volume (mm\^{}3)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Task2_Report_files/figure-latex/unnamed-chunk-9-1.pdf}}
+
+\end{document}
